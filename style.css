@@ -50,6 +50,23 @@ nav a:hover {
     color: #ff8000;
 }
 
+/* ===== ACTIVE NAVIGATION STYLES ===== */
+nav a.active-nav {
+    color: #ff8000 !important;
+    position: relative;
+}
+
+nav a.active-nav::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #ff8000;
+    animation: slideIn 0.3s ease;
+}
+
 .btn {
     padding: 10px 24px;
     border: none;
@@ -75,6 +92,28 @@ nav a:hover {
 .btn-secondary:hover {
     background: #ff8000;
     color: #fff;
+}
+
+/* ===== ENHANCED HOVER EFFECTS ===== */
+.btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+    left: 100%;
 }
 
 .hero {
@@ -164,10 +203,10 @@ nav a:hover {
     margin-bottom: 32px;
 }
 .services-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 32px;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 60px;
 }
 .service-card {
     background: #232323;
@@ -180,8 +219,8 @@ nav a:hover {
     transition: transform 0.2s;
 }
 .service-card:hover {
-    transform: translateY(-8px) scale(1.03);
-    box-shadow: 0 4px 32px rgba(255,128,0,0.08);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(255, 128, 0, 0.15);
 }
 .service-card i {
     font-size: 2.5rem;
@@ -278,16 +317,15 @@ nav a:hover {
     gap: 24px;
 }
 .portfolio-item {
-    background: #232323;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-    transition: transform 0.2s;
     position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
 }
 .portfolio-item:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 4px 32px rgba(255,128,0,0.08);
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
 }
 .portfolio-item img {
     width: 100%;
@@ -395,7 +433,132 @@ footer {
     margin-top: 12px;
 }
 
-/* ===== ANIMATIONS & TRANSITIONS ===== */
+/* ===== IMPROVED RESPONSIVE DESIGN ===== */
+@media (max-width: 1024px) {
+    .hero-content {
+        grid-template-columns: 1fr 300px;
+        gap: 40px;
+    }
+    
+    .services-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .portfolio-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-container {
+        position: relative;
+    }
+    
+    .header-controls {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 30px;
+    }
+    
+    .hero-img {
+        order: -1;
+    }
+    
+    .hero-stats {
+        justify-content: center;
+    }
+    
+    .about-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .about-img {
+        order: -1;
+        margin-bottom: 30px;
+    }
+    
+    .services-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .portfolio-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .portfolio-filters {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .portfolio-filters button {
+        flex: 1;
+        min-width: 120px;
+    }
+    
+    .skills {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .contact-form {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 95%;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero h2 {
+        font-size: 1.2rem;
+    }
+    
+    .btn {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+    }
+    
+    .skills {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero-stats {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .testimonials h2 {
+        font-size: 2rem;
+    }
+    
+    .testimonial-card {
+        padding: 20px 15px;
+    }
+    
+    .portfolio-filters button {
+        min-width: 100px;
+        font-size: 0.9rem;
+    }
+}
+
+/* ===== ANIMATIONS ===== */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -407,10 +570,10 @@ footer {
     }
 }
 
-@keyframes slideInLeft {
+@keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateX(-50px);
+        transform: translateX(-30px);
     }
     to {
         opacity: 1;
@@ -418,15 +581,56 @@ footer {
     }
 }
 
-@keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+.portfolio-item {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(255, 128, 0, 0.2);
+}
+
+.portfolio-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== LOADING IMPROVEMENTS ===== */
+.loading-spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #181818;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    transition: opacity 0.5s ease;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #333;
+    border-top: 3px solid #ff8000;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===== TYPING ANIMATION ===== */
+.typing-effect {
+    overflow: hidden;
+    border-right: 3px solid #ff8000;
+    white-space: nowrap;
+    margin: 0 auto;
+    animation: typing 3s steps(40, end), blink 0.75s step-end infinite;
 }
 
 @keyframes typing {
@@ -439,240 +643,130 @@ footer {
     51%, 100% { border-color: #ff8000 }
 }
 
-.fade-in {
-    animation: fadeInUp 0.8s ease-out forwards;
-}
-
-.slide-left {
-    animation: slideInLeft 0.8s ease-out forwards;
-}
-
-.slide-right {
-    animation: slideInRight 0.8s ease-out forwards;
-}
-
-/* Typing effect for name */
-.typing-effect {
-    overflow: hidden;
-    border-right: 3px solid #ff8000;
-    white-space: nowrap;
-    margin: 0 auto;
-    animation: typing 3s steps(40, end), blink 0.75s step-end infinite;
-}
-
-/* ===== ENHANCED HOVER EFFECTS ===== */
-.service-card {
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.service-card::before {
-    content: '';
+/* ===== FLOATING ELEMENTS ===== */
+.floating-elements {
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 128, 0, 0.1), transparent);
-    transition: left 0.5s;
-}
-
-.service-card:hover::before {
-    left: 100%;
-}
-
-.service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(255, 128, 0, 0.2);
-}
-
-.portfolio-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-}
-
-.portfolio-item::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, transparent, rgba(255, 128, 0, 0.8));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.portfolio-item:hover::after {
-    opacity: 1;
-}
-
-.portfolio-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-}
-
-.portfolio-info {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-    padding: 20px;
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
-}
-
-.portfolio-item:hover .portfolio-info {
-    transform: translateY(0);
-}
-
-/* ===== BACK TO TOP BUTTON ===== */
-.back-to-top {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: #ff8000;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 1000;
-}
-
-.back-to-top.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-.back-to-top:hover {
-    background: #e67300;
-    transform: translateY(-5px);
-}
-
-/* ===== LOADING SPINNER ===== */
-.loading-spinner {
-    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: #181818;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    transition: opacity 0.5s ease;
-}
-
-.spinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid #333;
-    border-top: 5px solid #ff8000;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* ===== SKILL PROGRESS BARS ===== */
-.skill {
-    position: relative;
-}
-
-.skill-progress {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 4px;
-    background: #ff8000;
-    border-radius: 2px;
-    transition: width 2s ease;
-    width: 0;
-}
-
-.skill.animate .skill-progress {
-    width: var(--progress, 0%);
-}
-
-/* ===== ENHANCED FORM STYLES ===== */
-.contact-form input, .contact-form textarea {
-    position: relative;
-    transition: all 0.3s ease;
-}
-
-.contact-form input:focus, .contact-form textarea:focus {
-    border-color: #ff8000;
-    box-shadow: 0 0 10px rgba(255, 128, 0, 0.3);
-    transform: translateY(-2px);
-}
-
-.form-group {
-    position: relative;
-    margin-bottom: 20px;
-}
-
-.floating-label {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    color: #999;
-    transition: all 0.3s ease;
+    overflow: hidden;
     pointer-events: none;
 }
 
-.form-group input:focus + .floating-label,
-.form-group input:not(:placeholder-shown) + .floating-label,
-.form-group textarea:focus + .floating-label,
-.form-group textarea:not(:placeholder-shown) + .floating-label {
+.floating-element {
+    position: absolute;
+    background: rgba(255, 128, 0, 0.1);
+    border-radius: 50%;
+    animation: float 20s infinite linear;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ===== ENHANCED TESTIMONIALS ===== */
+.testimonial-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonial-card::before {
+    content: '"';
+    position: absolute;
     top: -10px;
-    left: 10px;
-    font-size: 12px;
+    left: 20px;
+    font-size: 4rem;
     color: #ff8000;
-    background: #181818;
-    padding: 0 5px;
+    opacity: 0.3;
+    font-family: serif;
 }
 
-/* ===== MOBILE HAMBURGER MENU ===== */
-.hamburger {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    padding: 5px;
-}
-
-.hamburger span {
-    width: 25px;
+.testimonial-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     height: 3px;
-    background: #fff;
-    margin: 3px 0;
-    transition: 0.3s;
-    border-radius: 2px;
+    background: linear-gradient(90deg, #ff8000, transparent);
 }
 
-.hamburger.active span:nth-child(1) {
-    transform: rotate(-45deg) translate(-5px, 6px);
+/* ===== SKILLS ANIMATION ===== */
+.skill {
+    position: relative;
+    overflow: hidden;
 }
 
-.hamburger.active span:nth-child(2) {
-    opacity: 0;
+.skill.animate .skill-progress {
+    animation: fillProgress 2s ease-out forwards;
 }
 
-.hamburger.active span:nth-child(3) {
-    transform: rotate(45deg) translate(-5px, -6px);
+@keyframes fillProgress {
+    from {
+        width: 0%;
+    }
+    to {
+        width: var(--progress);
+    }
+}
+
+/* ===== SCROLL INDICATOR ===== */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, #ff8000, #ff6b35);
+    z-index: 1000;
+    transition: width 0.1s ease;
+}
+
+/* ===== ENHANCED LOADING ANIMATION ===== */
+.loading-spinner {
+    background: linear-gradient(45deg, #181818, #222);
+}
+
+.spinner {
+    position: relative;
+}
+
+.spinner::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #ff8000;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.4);
+        opacity: 0;
+    }
 }
 
 /* ===== RESPONSIVE ENHANCEMENTS ===== */
@@ -708,45 +802,252 @@ footer {
     .nav-container .btn {
         display: none;
     }
+    
+    .header-controls {
+        gap: 0.5rem;
+    }
+    
+    .theme-toggle {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .testimonials {
+        padding: 60px 0;
+    }
+    
+    .testimonial-card {
+        margin: 0 10px;
+        padding: 30px 20px;
+    }
+    
+    .testimonial-content p {
+        font-size: 1rem;
+    }
+    
+    .testimonial-author {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* ===== THEME TOGGLE ===== */
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.theme-toggle {
+    background: none;
+    border: 2px solid #ff8000;
+    color: #ff8000;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-toggle:hover {
+    background: #ff8000;
+    color: #181818;
+    transform: scale(1.1);
 }
 
 /* ===== LIGHT THEME ===== */
-.light-theme {
-    background: #f8f9fa !important;
-    color: #333 !important;
+body.light-theme {
+    background: #ffffff;
+    color: #333333;
 }
 
-.light-theme header,
-.light-theme .services,
-.light-theme .about,
-.light-theme .portfolio,
-.light-theme .contact,
-.light-theme footer {
-    background: #f8f9fa !important;
-    color: #333 !important;
+body.light-theme header {
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.light-theme .service-card,
-.light-theme .portfolio-item {
-    background: white !important;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+body.light-theme .logo,
+body.light-theme .footer-logo {
+    color: #ff8000;
 }
 
-.light-theme .contact-form input,
-.light-theme .contact-form textarea {
-    background: white !important;
-    border-color: #ddd !important;
-    color: #333 !important;
+body.light-theme nav a {
+    color: #333333;
 }
 
-.light-theme nav a {
-    color: #333 !important;
+body.light-theme .service-card,
+body.light-theme .portfolio-item,
+body.light-theme .testimonial-card {
+    background: #f8f9fa;
+    color: #333333;
 }
 
-.light-theme .hamburger span {
-    background: #333 !important;
+/* ===== TESTIMONIALS ===== */
+.testimonials {
+    padding: 100px 0;
+    background: #222;
 }
 
-.light-theme .floating-label {
-    color: #666 !important;
+.testimonials h2 {
+    text-align: center;
+    margin-bottom: 60px;
+    font-size: 2.5rem;
+    color: #ff8000;
+}
+
+.testimonials-slider {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.testimonial-card {
+    display: none;
+    text-align: center;
+    padding: 40px;
+    background: #333;
+    border-radius: 15px;
+    margin: 0 20px;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.testimonial-card.active {
+    display: block;
+}
+
+.testimonial-content p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.testimonial-author img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.testimonial-author h4 {
+    margin: 0;
+    color: #ff8000;
+}
+
+.testimonial-author span {
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.testimonial-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #666;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: #ff8000;
+    transform: scale(1.2);
+}
+
+/* ===== ENHANCED CONTACT SECTION ===== */
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-top: 60px;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: #333;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+    background: #444;
+    transform: translateX(10px);
+}
+
+.contact-item i {
+    font-size: 1.5rem;
+    color: #ff8000;
+    width: 30px;
+    text-align: center;
+}
+
+.contact-item h4 {
+    margin: 0 0 5px 0;
+    color: #ff8000;
+    font-size: 1.1rem;
+}
+
+.contact-item p {
+    margin: 0;
+    color: #ccc;
+}
+
+/* Enhanced form button */
+.contact-form .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.contact-form .btn i {
+    transition: transform 0.3s ease;
+}
+
+.contact-form .btn:hover i {
+    transform: translateX(5px);
+}
+
+/* Responsive contact section */
+@media (max-width: 768px) {
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .contact-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .contact-item:hover {
+        transform: translateY(-5px);
+    }
 }

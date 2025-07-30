@@ -10,11 +10,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-    <!-- Loading Spinner -->
+<body>    <!-- Loading Spinner -->
     <div class="loading-spinner" id="loadingSpinner">
         <div class="spinner"></div>
     </div>
+
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scrollProgress"></div>
 
     <!-- Back to Top Button -->
     <button class="back-to-top" id="backToTop">
@@ -31,12 +33,17 @@
                 <a href="#portfolio">Portfolio</a>
                 <a href="#contact">Contact me</a>
             </nav>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="header-controls">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <a href="#contact" class="btn btn-primary">Hire Me</a>
             </div>
-            <a href="#contact" class="btn btn-primary">Hire Me</a>
         </div>
     </header>
     <section class="hero">
@@ -67,22 +74,26 @@
     </section>
     <section id="services" class="services">
         <div class="container">
-            <h2>Services</h2>
-            <div class="services-list">
+            <h2>Services</h2>            <div class="services-list">
+                <div class="service-card">
+                    <i class="fa-solid fa-brain"></i>
+                    <h3>AI & Machine Learning</h3>
+                    <p>Develop intelligent systems using advanced ML algorithms, neural networks, and deep learning frameworks like TensorFlow and PyTorch.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fa-solid fa-eye"></i>
+                    <h3>Computer Vision</h3>
+                    <p>Create powerful image recognition, object detection, and visual analysis solutions for various business applications.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <h3>Data Science & Analytics</h3>
+                    <p>Transform raw data into actionable insights using statistical analysis, predictive modeling, and data visualization.</p>
+                </div>
                 <div class="service-card">
                     <i class="fa-solid fa-mobile-screen-button"></i>
-                    <h3>App Design</h3>
-                    <p>Make the app with Flutter combine with AI(firebase to save the data).</p>
-                </div>
-                <div class="service-card">
-                    <i class="fa-solid fa-laptop-code"></i>
-                    <h3>Web Design</h3>
-                    <p>Make portfolio</p>
-                </div>
-                <div class="service-card">
-                    <i class="fa-solid fa-palette"></i>
-                    <h3>Branding</h3>
-                    <p>Lorem ipsum dolor sit amet. Impedit convallis blandit felis ligula aliquam amet consectetur.</p>
+                    <h3>AI-Powered Apps</h3>
+                    <p>Build intelligent mobile and web applications with Flutter, integrating AI capabilities and Firebase backend.</p>
                 </div>
             </div>
         </div>
@@ -99,118 +110,201 @@
                 <a href="#" class="btn btn-secondary">Download CV</a>
             </div>
         </div>        <div class="container skills">
-            <div class="skill" data-progress="100">
-                <i class="fa-brands fa-figma"></i>
-                <span>100%<br>Figma</span>
-                <div class="skill-progress" style="--progress: 100%"></div>
+            <div class="skill" data-progress="95">
+                <i class="fa-brands fa-python"></i>
+                <span>95%<br>Python</span>
+                <div class="skill-progress" style="--progress: 95%"></div>
             </div>
-            <div class="skill" data-progress="100">
-                <i class="fa-brands fa-adobe"></i>
-                <span>100%<br>Adobe XD</span>
-                <div class="skill-progress" style="--progress: 100%"></div>
+            <div class="skill" data-progress="90">
+                <i class="fa-solid fa-brain"></i>
+                <span>90%<br>Machine Learning</span>
+                <div class="skill-progress" style="--progress: 90%"></div>
             </div>
             <div class="skill" data-progress="85">
-                <i class="fa-solid fa-image"></i>
-                <span>85%<br>Adobe Photoshop</span>
+                <i class="fa-solid fa-eye"></i>
+                <span>85%<br>Computer Vision</span>
                 <div class="skill-progress" style="--progress: 85%"></div>
             </div>
-            <div class="skill" data-progress="60">
-                <i class="fa-solid fa-pen-nib"></i>
-                <span>60%<br>Adobe Illustrator</span>
-                <div class="skill-progress" style="--progress: 60%"></div>
+            <div class="skill" data-progress="80">
+                <i class="fa-solid fa-database"></i>
+                <span>80%<br>Data Science</span>
+                <div class="skill-progress" style="--progress: 80%"></div>
             </div>
-            <div class="skill" data-progress="70">
-                <i class="fa-solid fa-film"></i>
-                <span>70%<br>Adobe Premiere</span>
-                <div class="skill-progress" style="--progress: 70%"></div>
+            <div class="skill" data-progress="75">
+                <i class="fa-solid fa-robot"></i>
+                <span>75%<br>Deep Learning</span>
+                <div class="skill-progress" style="--progress: 75%"></div>
             </div>
         </div>
     </section>
     <section id="portfolio" class="portfolio">
         <div class="container">
-            <h2>Portfolio</h2>
-            <div class="portfolio-filters">
-                <button class="active">All</button>
-                <button>Website Design</button>
-                <button>App Mobile Design</button>
-                <button>App Desktop</button>
-                <button>Branding</button>
+            <h2>Portfolio</h2>            <div class="portfolio-filters">
+                <button class="active" data-filter="all">All</button>
+                <button data-filter="ai">AI Projects</button>
+                <button data-filter="web">Web Development</button>
+                <button data-filter="mobile">Mobile Apps</button>
+                <button data-filter="data">Data Science</button>
             </div>
             <div class="portfolio-list">
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Project 1">
+                <div class="portfolio-item" data-category="ai">
+                    <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=400&q=80" alt="AI Chatbot">
                     <div class="portfolio-info">
-                        <h3>Name Project</h3>
-                        <p>Categories</p>
+                        <h3>AI Chatbot System</h3>
+                        <p>Machine Learning</p>
                     </div>
                 </div>
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Project 2">
+                <div class="portfolio-item" data-category="web">
+                    <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80" alt="Web Dashboard">
                     <div class="portfolio-info">
-                        <h3>Name Project</h3>
-                        <p>Categories</p>
+                        <h3>Analytics Dashboard</h3>
+                        <p>Web Development</p>
                     </div>
                 </div>
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3c8b?auto=format&fit=crop&w=400&q=80" alt="Project 3">
+                <div class="portfolio-item" data-category="data">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&q=80" alt="Data Visualization">
                     <div class="portfolio-info">
-                        <h3>Name Project</h3>
-                        <p>Categories</p>
+                        <h3>Data Visualization Tool</h3>
+                        <p>Data Science</p>
                     </div>
                 </div>
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Project 4">
+                <div class="portfolio-item" data-category="mobile">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=400&q=80" alt="Mobile App">
                     <div class="portfolio-info">
-                        <h3>Name Project</h3>
-                        <p>Categories</p>
+                        <h3>Smart Health App</h3>
+                        <p>Mobile Development</p>
                     </div>
                 </div>
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Project 5">
+                <div class="portfolio-item" data-category="ai">
+                    <img src="https://images.unsplash.com/photo-1507146153580-69a1fe6d8aa1?auto=format&fit=crop&w=400&q=80" alt="Computer Vision">
                     <div class="portfolio-info">
-                        <h3>Name Project</h3>
-                        <p>Categories</p>
+                        <h3>Object Detection System</h3>
+                        <p>Computer Vision</p>
                     </div>
                 </div>
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3c8b?auto=format&fit=crop&w=400&q=80" alt="Project 6">
+                <div class="portfolio-item" data-category="data">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80" alt="Predictive Analytics">
                     <div class="portfolio-info">
-                        <h3>Name Project</h3>
-                        <p>Categories</p>
+                        <h3>Predictive Analytics Model</h3>
+                        <p>Data Science</p>
                     </div>
                 </div>
+            </div>
+        </div>    </section>
+    
+    <section class="testimonials">
+        <div class="container">
+            <h2>What Clients Say</h2>
+            <div class="testimonials-slider">
+                <div class="testimonial-card active">
+                    <div class="testimonial-content">
+                        <p>"Duc Anh delivered an exceptional AI solution for our business. His expertise in machine learning helped us automate our processes efficiently."</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=facearea&w=60&h=60&facepad=2" alt="Client">
+                            <div>
+                                <h4>John Smith</h4>
+                                <span>CEO, TechCorp</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Working with Duc Anh was a great experience. His computer vision project exceeded our expectations and delivered on time."</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b647?auto=format&fit=facearea&w=60&h=60&facepad=2" alt="Client">
+                            <div>
+                                <h4>Sarah Johnson</h4>
+                                <span>Product Manager, InnovateAI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Duc Anh's deep learning expertise helped us solve complex data problems. Highly recommended for AI projects!"</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=facearea&w=60&h=60&facepad=2" alt="Client">
+                            <div>
+                                <h4>Michael Chen</h4>
+                                <span>CTO, DataFlow</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
             </div>
         </div>
     </section>
-    <section id="contact" class="contact">
+      <section id="contact" class="contact">
         <div class="container">
-            <h2>Contact me</h2>            <form class="contact-form" id="contactForm">
-                <div class="form-group">
-                    <input type="text" placeholder=" " required>
-                    <label class="floating-label">Name</label>
+            <h2>Contact me</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>ducanhhuynhdev@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+84 123 456 789</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Ho Chi Minh City, Vietnam</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Availability</h4>
+                            <p>Mon - Fri: 9:00 AM - 6:00 PM</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input type="email" placeholder=" " required>
-                    <label class="floating-label">Email</label>
-                </div>
-                <div class="form-group">
-                    <input type="text" placeholder=" ">
-                    <label class="floating-label">Phone Number</label>
-                </div>
-                <div class="form-group">
-                    <input type="text" placeholder=" ">
-                    <label class="floating-label">Service Of Interest</label>
-                </div>
-                <div class="form-group">
-                    <input type="text" placeholder=" ">
-                    <label class="floating-label">Timeline</label>
-                </div>
-                <div class="form-group">
-                    <textarea placeholder=" " rows="5"></textarea>
-                    <label class="floating-label">Project Details...</label>
-                </div>
-                <button type="submit" class="btn btn-primary">Send</button>
-            </form>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" placeholder=" " required>
+                        <label class="floating-label">Name</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder=" " required>
+                        <label class="floating-label">Email</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder=" ">
+                        <label class="floating-label">Phone Number</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder=" ">
+                        <label class="floating-label">Service Of Interest</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder=" ">
+                        <label class="floating-label">Timeline</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder=" " rows="5"></textarea>
+                        <label class="floating-label">Project Details...</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <span>Send Message</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
         </div>
     </section>
     <footer>

@@ -132,6 +132,31 @@ filterButtons.forEach(btn => {
     });
 });
 
+// ===== PORTFOLIO FILTERING =====
+const portfolioFilters = document.querySelectorAll('.portfolio-filters button');
+const allPortfolioItems = document.querySelectorAll('.portfolio-item');
+
+portfolioFilters.forEach(filter => {
+    filter.addEventListener('click', function() {
+        // Remove active class from all filters
+        portfolioFilters.forEach(f => f.classList.remove('active'));
+        
+        // Add active class to clicked filter
+        this.classList.add('active');
+        
+        const filterValue = this.getAttribute('data-filter');
+        
+        allPortfolioItems.forEach(item => {
+            if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                item.style.display = 'block';
+                item.style.animation = 'fadeInUp 0.6s ease-out';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+});
+
 // ===== ENHANCED CONTACT FORM =====
 const contactForm = document.getElementById('contactForm');
 
@@ -196,13 +221,34 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ===== PARALLAX EFFECT =====
+// ===== ACTIVE NAVIGATION HIGHLIGHTING =====
+const pageSections = document.querySelectorAll('section[id]');
+const navigationLinks = document.querySelectorAll('nav a[href^="#"]');
+
+window.addEventListener('scroll', () => {
+    let current = '';
+    pageSections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 200) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    navigationLinks.forEach(link => {
+        link.classList.remove('active-nav');
+        if (link.getAttribute('href') === `#${current}`) {
+            link.classList.add('active-nav');
+        }
+    });
+});
+
+// ===== PARALLAX EFFECT FOR HERO IMAGE =====
 window.addEventListener('scroll', function() {
     const scrolled = window.pageYOffset;
     const heroImg = document.querySelector('.hero-img img');
     
-    if (heroImg) {
-        heroImg.style.transform = `translateY(${scrolled * 0.5}px)`;
+    if (heroImg && scrolled < 800) {
+        heroImg.style.transform = `translateY(${scrolled * 0.3}px)`;
     }
 });
 
@@ -224,38 +270,135 @@ if ('IntersectionObserver' in window) {
     });
 }
 
-// ===== THEME TOGGLE (BONUS) =====
-function createThemeToggle() {
-    const themeToggle = document.createElement('button');
-    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-    themeToggle.className = 'theme-toggle';
-    themeToggle.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #ff8000;
-        border: none;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        color: white;
-        cursor: pointer;
-        z-index: 1001;
-        transition: all 0.3s ease;
-    `;
-    
-    document.body.appendChild(themeToggle);
-    
-    themeToggle.addEventListener('click', function() {
-        document.body.classList.toggle('light-theme');
-        const icon = this.querySelector('i');
-        if (document.body.classList.contains('light-theme')) {
-            icon.className = 'fas fa-sun';
-        } else {
-            icon.className = 'fas fa-moon';
-        }
-    });
+// ===== THEME TOGGLE =====
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+const themeIcon = themeToggle.querySelector('i');
+
+// Check for saved theme preference
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+    body.classList.add(savedTheme);
+    updateThemeIcon();
 }
 
-// Initialize theme toggle
-createThemeToggle();
+themeToggle.addEventListener('click', function() {
+    body.classList.toggle('light-theme');
+    
+    // Save theme preference
+    if (body.classList.contains('light-theme')) {
+        localStorage.setItem('theme', 'light-theme');
+    } else {
+        localStorage.removeItem('theme');
+    }
+    
+    updateThemeIcon();
+});
+
+function updateThemeIcon() {
+    if (body.classList.contains('light-theme')) {
+        themeIcon.className = 'fas fa-sun';
+    } else {
+        themeIcon.className = 'fas fa-moon';
+    }
+}
+
+// ===== TESTIMONIALS SLIDER =====
+let currentTestimonial = 0;
+const testimonials = document.querySelectorAll('.testimonial-card');
+const dots = document.querySelectorAll('.dot');
+
+function showTestimonial(index) {
+    // Hide all testimonials
+    testimonials.forEach(testimonial => {
+        testimonial.classList.remove('active');
+    });
+    
+    // Remove active class from all dots
+    dots.forEach(dot => {
+        dot.classList.remove('active');
+    });
+    
+    // Show selected testimonial and activate corresponding dot
+    testimonials[index].classList.add('active');
+    dots[index].classList.add('active');
+}
+
+// Add click event to dots
+dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        currentTestimonial = index;
+        showTestimonial(currentTestimonial);
+    });
+});
+
+// Auto-slide testimonials every 5 seconds
+setInterval(() => {
+    currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+    showTestimonial(currentTestimonial);
+}, 5000);
+
+// ===== FORM VALIDATION =====
+// Update existing form handling
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contactForm');
+    
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = form.querySelector('input[type="text"]').value;
+            const email = form.querySelector('input[type="email"]').value;
+            
+            if (name.trim() === '' || email.trim() === '') {
+                alert('Please fill in required fields: Name and Email');
+                return;
+            }
+            
+            // Simple email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+            
+            // Success message
+            alert('Thank you for your message! I will get back to you soon.');
+            form.reset();
+        });
+    }
+});
+
+// ===== SCROLL PROGRESS INDICATOR =====
+const scrollProgress = document.getElementById('scrollProgress');
+
+window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrollPercentage = (scrollTop / scrollHeight) * 100;
+    
+    scrollProgress.style.width = scrollPercentage + '%';
+});
+
+// ===== FLOATING ELEMENTS ANIMATION =====
+function createFloatingElements() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+    
+    const floatingContainer = document.createElement('div');
+    floatingContainer.className = 'floating-elements';
+    hero.appendChild(floatingContainer);
+    
+    for (let i = 0; i < 6; i++) {
+        const element = document.createElement('div');
+        element.className = 'floating-element';
+        element.style.left = Math.random() * 100 + '%';
+        element.style.width = element.style.height = Math.random() * 60 + 20 + 'px';
+        element.style.animationDelay = Math.random() * 20 + 's';
+        element.style.animationDuration = (Math.random() * 10 + 15) + 's';
+        floatingContainer.appendChild(element);
+    }
+}
+
+// Initialize floating elements
+document.addEventListener('DOMContentLoaded', createFloatingElements);
