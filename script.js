@@ -44,6 +44,230 @@ backToTop.addEventListener('click', function() {
     });
 });
 
+// ===== AI ASSISTANT CHAT =====
+class AIAssistant {
+    constructor() {
+        this.isInitialized = false;
+        this.conversationId = null;
+        this.socket = null;
+        this.apiUrl = 'http://localhost:5000/api';
+        this.init();
+    }
+
+    init() {
+        this.createChatInterface();
+        this.setupEventListeners();
+        this.connectSocket();
+        this.isInitialized = true;
+    }
+
+    createChatInterface() {
+        // Use existing HTML elements
+        this.chatButton = document.getElementById('aiChatButton');
+        this.chatWindow = document.getElementById('aiChatWindow');
+        this.chatMessages = document.getElementById('chatMessages');
+        this.chatInput = document.getElementById('chatInput');
+        this.chatSend = document.getElementById('chatSend');
+        this.chatClose = document.getElementById('aiChatClose');
+        this.chatSend = document.getElementById('chatSend');
+        this.chatTyping = document.getElementById('chatTyping');
+    }
+
+    setupEventListeners() {
+        // Chat button click
+        this.chatButton.addEventListener('click', () => {
+            this.toggleChat();
+        });
+
+        // Close chat
+        this.chatClose.addEventListener('click', () => {
+            this.closeChat();
+        });
+
+        // Send message
+        this.chatSend.addEventListener('click', () => {
+            this.sendMessage();
+        });
+
+        // Enter key to send
+        this.chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.sendMessage();
+            }
+        });
+
+        // Suggestion buttons
+        this.chatWindow.addEventListener('click', (e) => {
+            if (e.target.classList.contains('suggestion-btn')) {
+                this.chatInput.value = e.target.textContent;
+                this.sendMessage();
+            }
+        });
+    }
+
+    connectSocket() {
+        try {
+            if (typeof io !== 'undefined') {
+                this.socket = io('http://localhost:5000');
+                
+                this.socket.on('connect', () => {
+                    console.log('Connected to AI Assistant');
+                    this.socket.emit('register', { name: 'Portfolio Visitor' });
+                });
+
+                this.socket.on('ai_response', (data) => {
+                    this.handleAIResponse(data);
+                });
+
+                this.socket.on('ai_typing', (data) => {
+                    this.toggleTyping(data.typing);
+                });
+
+                this.socket.on('welcome', (data) => {
+                    this.updateSuggestions(data.suggestions);
+                });
+            }
+        } catch (error) {
+            console.log('Socket.io not available, using HTTP API');
+        }
+    }
+
+    toggleChat() {
+        const isOpen = this.chatWindow.classList.contains('open');
+        if (isOpen) {
+            this.closeChat();
+        } else {
+            this.openChat();
+        }
+    }
+
+    openChat() {
+        this.chatWindow.classList.add('open');
+        this.chatButton.classList.add('hidden');
+        this.chatInput.focus();
+    }
+
+    closeChat() {
+        this.chatWindow.classList.remove('open');
+        this.chatButton.classList.remove('hidden');
+    }
+
+    async sendMessage() {
+        const message = this.chatInput.value.trim();
+        if (!message) return;
+
+        // Add user message to chat
+        this.addMessage(message, 'user');
+        this.chatInput.value = '';
+
+        // Show typing indicator
+        this.toggleTyping(true);
+
+        try {
+            // Try socket first, then fallback to HTTP
+            if (this.socket && this.socket.connected) {
+                this.socket.emit('ai_message', {
+                    message,
+                    conversation_id: this.conversationId,
+                    context: 'portfolio'
+                });
+            } else {
+                // HTTP API fallback
+                const response = await fetch(`${this.apiUrl}/ai/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message,
+                        conversation_id: this.conversationId,
+                        context: 'portfolio'
+                    })
+                });
+
+                const data = await response.json();
+                this.handleAIResponse({ success: true, data });
+            }
+        } catch (error) {
+            console.error('Send message error:', error);
+            this.toggleTyping(false);
+            this.addMessage('Sorry, I\'m having trouble connecting. Please try again later or contact me directly at huynhducanh.ai@gmail.com', 'ai');
+        }
+    }
+
+    handleAIResponse(responseData) {
+        this.toggleTyping(false);
+
+        if (responseData.success) {
+            const data = responseData.data;
+            this.addMessage(data.response || data.message, 'ai');
+            
+            if (data.conversation_id) {
+                this.conversationId = data.conversation_id;
+            }
+
+            if (data.suggestions) {
+                this.updateSuggestions(data.suggestions);
+            }
+        } else {
+            this.addMessage(responseData.error || 'Sorry, something went wrong. Please try again.', 'ai');
+        }
+    }
+
+    addMessage(content, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${sender}-message`;
+        
+        const currentTime = new Date().toLocaleTimeString();
+        
+        messageDiv.innerHTML = `
+            <div class="message-content">
+                <p>${content}</p>
+            </div>
+            <div class="message-time">${currentTime}</div>
+        `;
+
+        this.chatMessages.appendChild(messageDiv);
+        this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+
+        // Add animation
+        messageDiv.style.opacity = '0';
+        messageDiv.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            messageDiv.style.transition = 'all 0.3s ease';
+            messageDiv.style.opacity = '1';
+            messageDiv.style.transform = 'translateY(0)';
+        }, 100);
+    }
+
+    toggleTyping(show) {
+        this.chatTyping.style.display = show ? 'flex' : 'none';
+        if (show) {
+            this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+        }
+    }
+
+    updateSuggestions(suggestions) {
+        const suggestionsContainer = document.getElementById('chatSuggestions');
+        if (suggestions && suggestions.length > 0) {
+            suggestionsContainer.innerHTML = suggestions.map(suggestion => 
+                `<button class="suggestion-btn">${suggestion}</button>`
+            ).join('');
+            suggestionsContainer.style.display = 'block';
+        } else {
+            suggestionsContainer.style.display = 'none';
+        }
+    }
+}
+
+// Initialize AI Assistant when page loads
+window.addEventListener('load', function() {
+    setTimeout(() => {
+        window.aiAssistant = new AIAssistant();
+    }, 2000);
+});
+
 // ===== SCROLL ANIMATIONS =====
 const observerOptions = {
     threshold: 0.1,
@@ -303,40 +527,60 @@ function updateThemeIcon() {
     }
 }
 
-// ===== TESTIMONIALS SLIDER =====
-let currentTestimonial = 0;
-const testimonials = document.querySelectorAll('.testimonial-card');
-const dots = document.querySelectorAll('.dot');
+// ===== TECH STACK TABS =====
+document.addEventListener('DOMContentLoaded', function() {
+    const techTabs = document.querySelectorAll('.tech-tab');
+    const techCategories = document.querySelectorAll('.tech-category');
 
-function showTestimonial(index) {
-    // Hide all testimonials
-    testimonials.forEach(testimonial => {
-        testimonial.classList.remove('active');
-    });
-    
-    // Remove active class from all dots
-    dots.forEach(dot => {
-        dot.classList.remove('active');
-    });
-    
-    // Show selected testimonial and activate corresponding dot
-    testimonials[index].classList.add('active');
-    dots[index].classList.add('active');
-}
+    function showTechCategory(targetId) {
+        // Hide all categories
+        techCategories.forEach(category => {
+            category.classList.remove('active');
+        });
+        
+        // Remove active class from all tabs
+        techTabs.forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        // Show selected category
+        const targetCategory = document.getElementById(targetId);
+        if (targetCategory) {
+            targetCategory.classList.add('active');
+        }
+        
+        // Activate corresponding tab
+        const activeTab = document.querySelector(`[data-target="${targetId}"]`);
+        if (activeTab) {
+            activeTab.classList.add('active');
+        }
+    }
 
-// Add click event to dots
-dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-        currentTestimonial = index;
-        showTestimonial(currentTestimonial);
+    // Add click event to tabs
+    techTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const targetId = tab.getAttribute('data-target');
+            showTechCategory(targetId);
+        });
+    });
+
+    // Show first category by default
+    if (techCategories.length > 0) {
+        showTechCategory('programming-languages');
+    }
+
+    // Add hover effects to tech items
+    const techItems = document.querySelectorAll('.tech-item, .cert-item');
+    techItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px) scale(1.05)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
     });
 });
-
-// Auto-slide testimonials every 5 seconds
-setInterval(() => {
-    currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-    showTestimonial(currentTestimonial);
-}, 5000);
 
 // ===== FORM VALIDATION =====
 // Update existing form handling

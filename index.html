@@ -3,12 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huynh Duc Anh Portfolio</title>
+    <title>Huynh Duc Anh - AI Engineer Portfolio</title>
+    <meta name="description" content="Huynh Duc Anh - AI Engineer specializing in Machine Learning, Computer Vision, and Data Science. Experienced in Python, TensorFlow, and AI solutions.">
+    <meta name="keywords" content="AI Engineer, Machine Learning, Computer Vision, Data Science, Python, TensorFlow, Portfolio">
+    <meta name="author" content="Huynh Duc Anh">
+    
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Socket.io CDN for AI Assistant -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 </head>
 <body>    <!-- Loading Spinner -->
     <div class="loading-spinner" id="loadingSpinner">
@@ -20,7 +27,7 @@
 
     <!-- Back to Top Button -->
     <button class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
+        <i class="fas fa-rocket"></i>
     </button>
 
     <header>
@@ -31,6 +38,8 @@
                 <a href="#services">Services</a>
                 <a href="#about">About me</a>
                 <a href="#portfolio">Portfolio</a>
+                <a href="#tech-stack">Tech Stack</a>
+                <a href="#certifications">Certifications</a>
                 <a href="#contact">Contact me</a>
             </nav>
             <div class="header-controls">
@@ -68,7 +77,7 @@
                 </div>
             </div>
             <div class="hero-img slide-right">
-                <img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=facearea&w=400&h=400&facepad=2" alt="Profile Photo">
+                <img src="Huynhducanh.png" alt="Huynh Duc Anh - AI Engineer">
             </div>
         </div>
     </section>
@@ -91,6 +100,10 @@
                     <p>Transform raw data into actionable insights using statistical analysis, predictive modeling, and data visualization.</p>
                 </div>
                 <div class="service-card">
+                    <i class="fa-solid fa-code"></i>
+                    <h3>AI Consultation & Development</h3>
+                    <p>Expert consultation on AI strategy, custom AI solution development, and seamless integration with existing systems.</p>
+                </div>
                     <i class="fa-solid fa-mobile-screen-button"></i>
                     <h3>AI-Powered Apps</h3>
                     <p>Build intelligent mobile and web applications with Flutter, integrating AI capabilities and Firebase backend.</p>
@@ -192,51 +205,173 @@
             </div>
         </div>    </section>
     
-    <section class="testimonials">
+    <section id="tech-stack" class="tech-stack">
         <div class="container">
-            <h2>What Clients Say</h2>
-            <div class="testimonials-slider">
-                <div class="testimonial-card active">
-                    <div class="testimonial-content">
-                        <p>""</p>
-                        <div class="testimonial-author">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=facearea&w=60&h=60&facepad=2" alt="Client">
-                            <div>
-                                <h4>John Smith</h4>
-                                <span>CEO, TechCorp</span>
-                            </div>
+            <h2>Tech Stack</h2>
+            <div class="tech-categories">
+                <div class="tech-category active" id="programming-languages">
+                    <h3><i class="fas fa-code"></i> Programming Languages</h3>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <i class="fab fa-python"></i>
+                            <span>Python</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-js-square"></i>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-react"></i>
+                            <span>React</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-node-js"></i>
+                            <span>Node.js</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-database"></i>
+                            <span>SQL</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-docker"></i>
+                            <span>Docker</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-java"></i>
+                            <span>Java</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-html5"></i>
+                            <span>HTML5</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-css3-alt"></i>
+                            <span>CSS3</span>
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>""</p>
-                        <div class="testimonial-author">
-                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b647?auto=format&fit=facearea&w=60&h=60&facepad=2" alt="Client">
-                            <div>
-                                <h4>Sarah Johnson</h4>
-                                <span>Product Manager, InnovateAI</span>
-                            </div>
+                <div class="tech-category" id="frameworks-tools">
+                    <h3><i class="fas fa-tools"></i> Frameworks & Tools</h3>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <i class="fas fa-robot"></i>
+                            <span>TensorFlow</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-fire"></i>
+                            <span>PyTorch</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Scikit-learn</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-eye"></i>
+                            <span>OpenCV</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-language"></i>
+                            <span>NLP/NLTK</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-server"></i>
+                            <span>FastAPI</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-angular"></i>
+                            <span>Angular</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-vuejs"></i>
+                            <span>Vue.js</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-cloud"></i>
+                            <span>AWS</span>
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>""</p>
-                        <div class="testimonial-author">
-                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=facearea&w=60&h=60&facepad=2" alt="Client">
-                            <div>
-                                <h4>Michael Chen</h4>
-                                <span>CTO, DataFlow</span>
-                            </div>
+                <div class="tech-category" id="databases">
+                    <h3><i class="fas fa-database"></i> Databases</h3>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <i class="fas fa-database"></i>
+                            <span>PostgreSQL</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-database"></i>
+                            <span>MySQL</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-leaf"></i>
+                            <span>MongoDB</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-memory"></i>
+                            <span>Redis</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-search"></i>
+                            <span>Elasticsearch</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-cube"></i>
+                            <span>SQLite</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="testimonial-dots">
-                <span class="dot active" data-slide="0"></span>
-                <span class="dot" data-slide="1"></span>
-                <span class="dot" data-slide="2"></span>
+            <div class="tech-tabs">
+                <button class="tech-tab active" data-target="programming-languages">
+                    <i class="fas fa-code"></i> Languages
+                </button>
+                <button class="tech-tab" data-target="frameworks-tools">
+                    <i class="fas fa-tools"></i> Frameworks
+                </button>
+                <button class="tech-tab" data-target="databases">
+                    <i class="fas fa-database"></i> Databases
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="certifications">
+        <div class="container">
+            <h2>Certifications & Achievements</h2>
+            <div class="cert-grid">
+                <div class="cert-item">
+                    <img src="certs/AI_foundation.png" alt="AI Foundation Certificate">
+                    <div class="cert-info">
+                        <h4>AI Foundation</h4>
+                        <p>Fundamental AI & Machine Learning Concepts</p>
+                        <span class="cert-date">2023</span>
+                    </div>
+                </div>
+                <div class="cert-item">
+                    <img src="certs/datascience.png" alt="Data Science Certificate">
+                    <div class="cert-info">
+                        <h4>Data Science Specialist</h4>
+                        <p>Advanced Analytics & Statistical Modeling</p>
+                        <span class="cert-date">2023</span>
+                    </div>
+                </div>
+                <div class="cert-item">
+                    <img src="certs/math_ML.png" alt="Math for ML Certificate">
+                    <div class="cert-info">
+                        <h4>Mathematics for Machine Learning</h4>
+                        <p>Linear Algebra, Calculus & Statistics</p>
+                        <span class="cert-date">2022</span>
+                    </div>
+                </div>
+                <div class="cert-item">
+                    <img src="certs/sdlc.png" alt="SDLC Certificate">
+                    <div class="cert-info">
+                        <h4>Software Development Lifecycle</h4>
+                        <p>Best Practices & Project Management</p>
+                        <span class="cert-date">2022</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -315,6 +450,8 @@
                 <a href="#services">Services</a>
                 <a href="#about">About me</a>
                 <a href="#portfolio">Portfolio</a>
+                <a href="#tech-stack">Tech Stack</a>
+                <a href="#certifications">Certifications</a>
                 <a href="#contact">Contact me</a>
             </nav>
             <div class="footer-social">                
@@ -332,6 +469,45 @@
             </div>
         </div>
     </footer>
+
+    <!-- AI Chat Assistant -->
+    <div class="ai-chat-button" id="aiChatButton">
+        <i class="fas fa-robot"></i>
+    </div>
+
+    <div class="ai-chat-window" id="aiChatWindow">
+        <div class="ai-chat-header">
+            <div class="ai-chat-title">
+                <i class="fas fa-robot"></i>
+                <span>AI Assistant</span>
+            </div>
+            <button class="ai-chat-close" id="aiChatClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message ai-message">
+                <i class="fas fa-robot"></i>
+                <div class="message-content">
+                    <p>Hi! I'm your AI assistant. I can help you learn more about my skills, projects, and experience. What would you like to know?</p>
+                    <div class="quick-questions">
+                        <button class="quick-btn">Tell me about your AI projects</button>
+                        <button class="quick-btn">What machine learning frameworks do you use?</button>
+                        <button class="quick-btn">How did you get started in AI?</button>
+                        <button class="quick-btn">What services do you offer?</button>
+                        <button class="quick-btn">Can you show me your certifications?</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Ask me anything about Huynh Duc Anh's portfolio...">
+            <button id="chatSend">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

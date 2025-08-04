@@ -1,0 +1,52 @@
+{
+  "version": 2,
+  "name": "huynh-duc-anh-portfolio",
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
+    },
+    {
+      "src": "backend/src/server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "ai-service/main.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/ai/(.*)",
+      "dest": "ai-service/main.py"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "backend/src/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "frontend/build/$1"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    }
+  },
+  "functions": {
+    "backend/src/server.js": {
+      "maxDuration": 30
+    },
+    "ai-service/main.py": {
+      "maxDuration": 30
+    }
+  },
+  "outputDirectory": "frontend/build"
+}

@@ -1,0 +1,27 @@
+# Development Dockerfile for Backend
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Install dependencies
+COPY package*.json ./
+RUN npm ci
+
+# Copy source code
+COPY . .
+
+# Create logs directory
+RUN mkdir -p logs
+
+# Install nodemon for development
+RUN npm install -g nodemon
+
+# Expose port and debug port
+EXPOSE 5000 9229
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:5000/api/health || exit 1
+
+# Start with nodemon and debug
+CMD ["npm", "run", "dev"]
