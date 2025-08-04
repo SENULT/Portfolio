@@ -26,24 +26,6 @@ mobileNav.addEventListener('click', function(e) {
     }
 });
 
-// ===== BACK TO TOP BUTTON =====
-const backToTop = document.getElementById('backToTop');
-
-window.addEventListener('scroll', function() {
-    if (window.pageYOffset > 300) {
-        backToTop.classList.add('show');
-    } else {
-        backToTop.classList.remove('show');
-    }
-});
-
-backToTop.addEventListener('click', function() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-});
-
 // ===== AI ASSISTANT CHAT =====
 class AIAssistant {
     constructor() {
