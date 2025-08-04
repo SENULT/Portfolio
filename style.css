@@ -1292,6 +1292,9 @@ body.light-theme .testimonial-card {
     padding: 16px;
     background: #181818;
     scroll-behavior: smooth;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .chat-messages::-webkit-scrollbar {
@@ -1340,6 +1343,44 @@ body.light-theme .testimonial-card {
     border-bottom-left-radius: 4px;
 }
 
+.ai-message {
+    align-items: flex-start;
+    display: flex;
+    gap: 10px;
+}
+
+.ai-message i {
+    color: #ff8000;
+    font-size: 1.2rem;
+    margin-top: 12px;
+}
+
+.quick-questions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.quick-btn {
+    background: #333;
+    border: 1px solid #555;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.quick-btn:hover {
+    background: #ff8000;
+    border-color: #ff8000;
+    color: #000;
+    transform: translateY(-2px);
+}
+
 .message-content p {
     margin: 0;
     line-height: 1.4;
@@ -1378,7 +1419,7 @@ body.light-theme .testimonial-card {
     color: white;
 }
 
-.chat-input-container {
+.chat-input {
     padding: 16px;
     background: #232323;
     border-top: 1px solid #404040;

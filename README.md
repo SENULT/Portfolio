@@ -140,56 +140,84 @@ DEBUG=false
 DATABASE_URL=postgresql://user:password@localhost:5432/ai_service
 ```
 
-## 🚀 Deploy lên GitHub
+## 🚀 Deploy lên GitHub và Vercel
 
 ### Bước 1: Tạo Repository trên GitHub
 1. Đăng nhập GitHub
 2. Click "New repository"
-3. Đặt tên repository (vd: `my-portfolio`)
-4. Chọn Public hoặc Private
-5. Click "Create repository"
+3. Đặt tên repository (vd: `huynhducanhportfolio`)
+4. Chọn Public
+5. **KHÔNG** check "Add a README file" (vì đã có sẵn)
+6. Click "Create repository"
 
 ### Bước 2: Push code lên GitHub
 ```bash
-# Khởi tạo git repository (nếu chưa có)
+# Kiểm tra git status
+git status
+
+# Nếu chưa init git
 git init
 
 # Add tất cả files
 git add .
 
 # Commit với message
-git commit -m "Initial commit: Portfolio with AI Assistant"
+git commit -m "Portfolio with AI Assistant - Full Stack"
 
-# Add remote repository
-git remote add origin https://github.com/your-username/your-portfolio-repo.git
+# Add remote repository (thay SENULT bằng username GitHub của bạn)
+git remote add origin https://github.com/SENULT/Portfolio.git
 
 # Push lên GitHub
 git push -u origin main
 ```
 
-### Bước 3: Deploy lên Vercel (Hosting miễn phí)
+### Bước 3: Deploy lên Vercel (Static Site)
 1. Truy cập [vercel.com](https://vercel.com)
 2. Đăng nhập bằng GitHub
-3. Click "Import Project"
-4. Chọn repository vừa push
-5. Cấu hình build settings:
+3. Click "New Project"
+4. Chọn repository `Portfolio` vừa push
+5. **Framework Preset**: Chọn "Other"
+6. **Root Directory**: Để trống (.)
+7. **Build Settings**:
    ```
-   Framework Preset: Other
-   Build Command: npm run build (nếu có)
-   Output Directory: . (root directory)
+   Build Command: (để trống)
+   Output Directory: (để trống)
+   Install Command: (để trống)
    ```
-6. Thêm Environment Variables trong Vercel dashboard
-7. Deploy!
+8. Click "Deploy"
+
+### Lưu ý về Deployment:
+- **Frontend**: Vercel sẽ host static files (HTML/CSS/JS)
+- **Backend & AI**: Cần deploy riêng trên Railway, Render, hoặc Heroku
+- **Hoặc sử dụng Docker** trên VPS/Cloud server
+
+### Deploy Backend (Tùy chọn):
+```bash
+# Railway
+npm install -g @railway/cli
+railway login
+railway init
+railway up
+
+# Hoặc Render
+# 1. Đăng nhập render.com
+# 2. Connect GitHub repo
+# 3. Deploy backend folder
+```
 
 ## 📁 Cấu trúc Project
 
 ```
 Portfolio/
-├── 📁 frontend/                 # Frontend files
-│   ├── index.html              # Main HTML file
-│   ├── style.css               # CSS styles
-│   ├── script.js               # JavaScript logic
-│   └── assets/                 # Images, fonts, etc.
+├── � index.html               # Main HTML file (Frontend)
+├── 📄 style.css                # CSS styles  
+├── 📄 script.js                # JavaScript logic
+├── 🖼️ Huynhducanh.png          # Profile image
+├── 📁 certs/                   # Certificate images
+│   ├── AI_foundation.png
+│   ├── datascience.png
+│   ├── math_ML.png
+│   └── sdlc.png
 ├── 📁 backend/                 # Node.js backend
 │   ├── src/
 │   │   ├── app.js             # Express server
@@ -204,12 +232,12 @@ Portfolio/
 │   │   └── services/         # AI services
 │   ├── requirements.txt
 │   └── Dockerfile
-├── 📁 certs/                  # Certificate images
-├── docker-compose.yml         # Docker configuration
-├── .env.example              # Environment template
-├── start.bat                 # Windows start script
-├── start.sh                  # Linux/Mac start script
-└── README.md                 # This file
+├── � docker-compose.yml      # Docker configuration
+├── 📄 vercel.json             # Vercel deployment config
+├── 📄 .env.example           # Environment template
+├── 🚀 start.bat              # Windows start script
+├── 🚀 start.sh               # Linux/Mac start script
+└── 📖 README.md              # This file
 ```
 
 ## 🔧 Customization

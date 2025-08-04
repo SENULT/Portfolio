@@ -50,7 +50,10 @@ class AIAssistant {
         this.isInitialized = false;
         this.conversationId = null;
         this.socket = null;
-        this.apiUrl = 'http://localhost:5000/api';
+        // Auto-detect API URL based on environment
+        this.apiUrl = window.location.hostname === 'localhost' 
+            ? 'http://localhost:5000/api'
+            : '/api'; // For production deployment
         this.init();
     }
 
@@ -108,7 +111,11 @@ class AIAssistant {
     connectSocket() {
         try {
             if (typeof io !== 'undefined') {
-                this.socket = io('http://localhost:5000');
+                // Auto-detect socket URL
+                const socketUrl = window.location.hostname === 'localhost' 
+                    ? 'http://localhost:5000'
+                    : window.location.origin;
+                this.socket = io(socketUrl);
                 
                 this.socket.on('connect', () => {
                     console.log('Connected to AI Assistant');
