@@ -79,12 +79,11 @@ class AIAssistant {
             if (e.key === 'Enter') {
                 this.sendMessage();
             }
-        });
-
-        // Suggestion buttons
+        });        // Suggestion buttons
         this.chatWindow.addEventListener('click', (e) => {
-            if (e.target.classList.contains('suggestion-btn')) {
-                this.chatInput.value = e.target.textContent;
+            if (e.target.classList.contains('quick-btn')) {
+                const question = e.target.getAttribute('data-question') || e.target.textContent;
+                this.chatInput.value = question;
                 this.sendMessage();
             }
         });
@@ -139,13 +138,11 @@ class AIAssistant {
     closeChat() {
         this.chatWindow.classList.remove('open');
         this.chatButton.classList.remove('hidden');
-    }
-
-    async sendMessage() {
+    }    async sendMessage() {
         const message = this.chatInput.value.trim();
         if (!message) return;
 
-        // Add user message to chat
+        // Add user message
         this.addMessage(message, 'user');
         this.chatInput.value = '';
 
@@ -153,35 +150,54 @@ class AIAssistant {
         this.toggleTyping(true);
 
         try {
-            // Try socket first, then fallback to HTTP
-            if (this.socket && this.socket.connected) {
-                this.socket.emit('ai_message', {
-                    message,
-                    conversation_id: this.conversationId,
-                    context: 'portfolio'
-                });
-            } else {
-                // HTTP API fallback
-                const response = await fetch(`${this.apiUrl}/ai/chat`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        message,
-                        conversation_id: this.conversationId,
-                        context: 'portfolio'
-                    })
-                });
+            // Simulate AI response with predefined answers
+            const response = this.getAIResponse(message);
+            
+            setTimeout(() => {
+                this.toggleTyping(false);
+                this.addMessage(response, 'ai');
+            }, 1500);
 
-                const data = await response.json();
-                this.handleAIResponse({ success: true, data });
-            }
         } catch (error) {
-            console.error('Send message error:', error);
+            console.error('Chat error:', error);
             this.toggleTyping(false);
-            this.addMessage('Sorry, I\'m having trouble connecting. Please try again later or contact me directly at huynhducanh.ai@gmail.com', 'ai');
+            this.addMessage('Sorry, I encountered an error. Please try again later.', 'ai');
         }
+    }
+
+    getAIResponse(message) {
+        const lowerMessage = message.toLowerCase();
+        
+        // Predefined responses
+        if (lowerMessage.includes('ai projects') || lowerMessage.includes('project')) {
+            return "I've worked on several exciting AI projects including:\\n\\n• AI-Powered Image Recognition System for quality control\\n• Intelligent Chatbot with natural language processing\\n• Computer Vision Object Detection System\\n• Predictive Analytics Model for business intelligence\\n\\nEach project leveraged cutting-edge technologies like TensorFlow, PyTorch, and OpenCV to solve real-world problems.";
+        }
+        
+        if (lowerMessage.includes('machine learning') || lowerMessage.includes('framework')) {
+            return "I work with various ML frameworks:\\n\\n• **TensorFlow** - For deep learning and neural networks\\n• **PyTorch** - For research and prototyping\\n• **Scikit-learn** - For traditional ML algorithms\\n• **OpenCV** - For computer vision tasks\\n• **Pandas & NumPy** - For data manipulation\\n• **FastAPI** - For deploying ML models\\n\\nI'm proficient in Python and have experience deploying models in production environments.";
+        }
+        
+        if (lowerMessage.includes('started') || lowerMessage.includes('journey')) {
+            return "My AI journey began during my Computer Science studies where I was fascinated by the potential of machine learning. I started with basic algorithms, then dove deep into neural networks and computer vision. Through continuous learning and hands-on projects, I've developed expertise in building intelligent systems that solve real business problems.";
+        }
+        
+        if (lowerMessage.includes('services') || lowerMessage.includes('offer')) {
+            return "I offer comprehensive AI solutions:\\n\\n• **AI & Machine Learning** - Custom model development\\n• **Computer Vision** - Image recognition & analysis\\n• **Data Science** - Analytics & insights\\n• **AI Consultation** - Strategy & implementation\\n• **AI-Powered Apps** - Intelligent applications\\n\\nI can help from initial consultation to full deployment and maintenance.";
+        }
+        
+        if (lowerMessage.includes('certification') || lowerMessage.includes('certificate')) {
+            return "I hold several professional certifications:\\n\\n• **AI Foundation Certificate** (2023)\\n• **Data Science Specialist** (2023)\\n• **Mathematics for Machine Learning** (2022)\\n• **Software Development Lifecycle** (2022)\\n\\nThese certifications validate my expertise in AI fundamentals, data science, and software development best practices.";
+        }
+        
+        if (lowerMessage.includes('contact') || lowerMessage.includes('hire')) {
+            return "I'd love to discuss your AI needs! You can reach me:\\n\\n• **Email**: ducanhhuynh2005@gmail.com\\n• **Phone**: +84 3255 4947\\n• **Location**: Da Nang, Vietnam\\n\\nFeel free to use the contact form on this website or reach out directly. I'm always excited to work on innovative AI projects!";
+        }
+        
+        if (lowerMessage.includes('skills') || lowerMessage.includes('technology')) {
+            return "My technical expertise includes:\\n\\n• **Programming**: Python (95%), JavaScript (85%), Java (75%)\\n• **AI/ML**: Machine Learning, Deep Learning, Computer Vision\\n• **Frameworks**: TensorFlow, PyTorch, React, Node.js\\n• **Databases**: SQL (90%), MongoDB, Redis\\n• **Tools**: Docker (70%), AWS, Git\\n\\nI specialize in building end-to-end AI solutions from data processing to deployment.";        }
+        
+        // Default response
+        return "Thanks for your question! I'm Huynh Duc Anh's AI assistant. I can help you learn about:\\n\\n• AI projects and experience\\n• Technical skills and frameworks\\n• Services and consultation\\n• Certifications and achievements\\n• Contact information\\n\\nFeel free to ask me anything about my AI engineering background!";
     }
 
     handleAIResponse(responseData) {
@@ -201,17 +217,18 @@ class AIAssistant {
         } else {
             this.addMessage(responseData.error || 'Sorry, something went wrong. Please try again.', 'ai');
         }
-    }
-
-    addMessage(content, sender) {
+    }    addMessage(content, sender) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${sender}-message`;
         
         const currentTime = new Date().toLocaleTimeString();
         
+        // Format content with line breaks
+        const formattedContent = content.replace(/\\n/g, '<br>');
+        
         messageDiv.innerHTML = `
             <div class="message-content">
-                <p>${content}</p>
+                <p>${formattedContent}</p>
             </div>
             <div class="message-time">${currentTime}</div>
         `;
@@ -228,12 +245,13 @@ class AIAssistant {
             messageDiv.style.opacity = '1';
             messageDiv.style.transform = 'translateY(0)';
         }, 100);
-    }
-
-    toggleTyping(show) {
-        this.chatTyping.style.display = show ? 'flex' : 'none';
-        if (show) {
-            this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+    }    toggleTyping(show) {
+        const chatTyping = document.getElementById('chatTyping');
+        if (chatTyping) {
+            chatTyping.style.display = show ? 'flex' : 'none';
+            if (show) {
+                this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+            }
         }
     }
 
@@ -278,6 +296,16 @@ const observer = new IntersectionObserver(function(entries) {
                     }, index * 200);
                 });
             }
+            
+            // Animate tech stack progress bars
+            if (entry.target.classList.contains('tech-stack')) {
+                animateTechItems(entry.target);
+            }
+            
+            // Animate tech category progress bars
+            if (entry.target.classList.contains('tech-category') && entry.target.classList.contains('active')) {
+                animateTechItems(entry.target);
+            }
         }
     });
 }, observerOptions);
@@ -290,6 +318,22 @@ sections.forEach(section => {
     section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
     observer.observe(section);
 });
+
+// Observe tech categories for progress bar animations
+const techCategories = document.querySelectorAll('.tech-category');
+techCategories.forEach(category => {
+    observer.observe(category);
+});
+
+// Function to animate tech items when they come into view
+function animateTechItems(container) {
+    const techItems = container.querySelectorAll('.tech-item');
+    techItems.forEach((item, index) => {
+        setTimeout(() => {
+            item.classList.add('animate');
+        }, index * 150);
+    });
+}
 
 // ===== TYPING EFFECT =====
 function typeWriter(element, text, speed = 100) {
@@ -519,9 +563,7 @@ function updateThemeIcon() {
 // ===== TECH STACK TABS =====
 document.addEventListener('DOMContentLoaded', function() {
     const techTabs = document.querySelectorAll('.tech-tab');
-    const techCategories = document.querySelectorAll('.tech-category');
-
-    function showTechCategory(targetId) {
+    const techCategories = document.querySelectorAll('.tech-category');    function showTechCategory(targetId) {
         // Hide all categories
         techCategories.forEach(category => {
             category.classList.remove('active');
@@ -536,6 +578,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const targetCategory = document.getElementById(targetId);
         if (targetCategory) {
             targetCategory.classList.add('active');
+            
+            // Trigger animation for tech items
+            setTimeout(() => {
+                animateTechItems(targetCategory);
+            }, 100);
         }
         
         // Activate corresponding tab
@@ -551,11 +598,23 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetId = tab.getAttribute('data-target');
             showTechCategory(targetId);
         });
-    });
-
-    // Show first category by default
+    });    // Show first category by default
     if (techCategories.length > 0) {
         showTechCategory('programming-languages');
+        
+        // Also trigger animation when page loads and tech stack is in view
+        const techStackSection = document.querySelector('#tech-stack');
+        if (techStackSection) {
+            const rect = techStackSection.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                setTimeout(() => {
+                    const activeCategory = document.querySelector('.tech-category.active');
+                    if (activeCategory) {
+                        animateTechItems(activeCategory);
+                    }
+                }, 500);
+            }
+        }
     }
 
     // Add hover effects to tech items
@@ -635,3 +694,45 @@ function createFloatingElements() {
 
 // Initialize floating elements
 document.addEventListener('DOMContentLoaded', createFloatingElements);
+
+// Force trigger tech stack animations when scrolling to tech stack section
+window.addEventListener('scroll', function() {
+    const techStackSection = document.querySelector('#tech-stack');
+    if (techStackSection) {
+        const rect = techStackSection.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+        
+        if (isVisible) {
+            const activeCategory = document.querySelector('.tech-category.active');
+            if (activeCategory) {
+                const techItems = activeCategory.querySelectorAll('.tech-item');
+                techItems.forEach((item, index) => {
+                    if (!item.classList.contains('animate')) {
+                        setTimeout(() => {
+                            item.classList.add('animate');
+                        }, index * 150);
+                    }
+                });
+            }
+        }
+    }
+});
+
+// Also trigger when tabs change
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('tech-tab') || e.target.closest('.tech-tab')) {
+        setTimeout(() => {
+            const activeCategory = document.querySelector('.tech-category.active');
+            if (activeCategory) {
+                const techItems = activeCategory.querySelectorAll('.tech-item');
+                techItems.forEach((item, index) => {
+                    // Reset animation
+                    item.classList.remove('animate');
+                    setTimeout(() => {
+                        item.classList.add('animate');
+                    }, index * 100 + 200);
+                });
+            }
+        }, 100);
+    }
+});

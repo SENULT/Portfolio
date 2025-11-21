@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
     
     <!-- Preload critical images -->
     <link rel="preload" as="image" href="Huynhducanh.png">
@@ -118,38 +120,62 @@
         <div class="container about-container">
             <div class="about-img">
                 <img src="Huynhducanh.png" alt="Profile Photo">
-            </div>
-            <div class="about-text">
+            </div>            <div class="about-text">
                 <h2>About Me</h2>
-                <p>An AI engineer with some tech like Python and some ML, DL and CV to contact the data</p>
-                <p class="about-desc">A software engineer, the modern-day architect of digital realms, navigates the ethereal landscapes of code. Sculpting intangible structures that shape our technological world, their fingers glide over keyboards like virtuoso pianists, they compose symphonies of logic, their minds a labyrinth of algorithms and solutions. Their canvas is screens, a vast expanse where lines of code can initiate revolutions, weaving the fabric of programs and applications. Each keystroke is a testament to their relentless work ethic and breathing life into innovative designs in this digital atelier. They don the mantle of problem-solvers, confronting bugs and glitches like valiant knights in an era of unyielding evolution. For them, debugging becomes a noble pursuit, unraveling the mysterious hidden within the tangled webs of code, in depths in this digital atelier.</p>
+                <p>Passionate AI Engineer specializing in Machine Learning, Deep Learning, and Computer Vision with expertise in Python, TensorFlow, and modern AI frameworks.</p>
+                <p class="about-desc">As an AI Engineer, I focus on developing intelligent systems that solve real-world problems. My expertise spans across machine learning algorithms, neural networks, and computer vision applications. I'm passionate about leveraging cutting-edge AI technologies like TensorFlow, PyTorch, and OpenCV to create innovative solutions. My goal is to bridge the gap between theoretical AI research and practical business applications, helping organizations harness the power of artificial intelligence to drive growth and efficiency. I specialize in building end-to-end AI pipelines, from data preprocessing and model training to deployment and monitoring in production environments.</p>
                 <a href="#" class="btn btn-secondary">Download CV</a>
             </div>
         </div>        <div class="container skills">
             <div class="skill" data-progress="95">
-                <i class="fa-brands fa-python"></i>
-                <span>95%<br>Python</span>
-                <div class="skill-progress" style="--progress: 95%"></div>
+                <div class="skill-info">
+                    <i class="fa-brands fa-python"></i>
+                    <span>Python</span>
+                    <span class="skill-percent">95%</span>
+                </div>
+                <div class="skill-progress-bar">
+                    <div class="skill-progress" style="--progress: 95%"></div>
+                </div>
             </div>
             <div class="skill" data-progress="90">
-                <i class="fa-solid fa-brain"></i>
-                <span>90%<br>Machine Learning</span>
-                <div class="skill-progress" style="--progress: 90%"></div>
+                <div class="skill-info">
+                    <i class="fa-solid fa-brain"></i>
+                    <span>Machine Learning</span>
+                    <span class="skill-percent">90%</span>
+                </div>
+                <div class="skill-progress-bar">
+                    <div class="skill-progress" style="--progress: 90%"></div>
+                </div>
             </div>
             <div class="skill" data-progress="85">
-                <i class="fa-solid fa-eye"></i>
-                <span>85%<br>Computer Vision</span>
-                <div class="skill-progress" style="--progress: 85%"></div>
+                <div class="skill-info">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Computer Vision</span>
+                    <span class="skill-percent">85%</span>
+                </div>
+                <div class="skill-progress-bar">
+                    <div class="skill-progress" style="--progress: 85%"></div>
+                </div>
             </div>
             <div class="skill" data-progress="80">
-                <i class="fa-solid fa-database"></i>
-                <span>80%<br>Data Science</span>
-                <div class="skill-progress" style="--progress: 80%"></div>
+                <div class="skill-info">
+                    <i class="fa-solid fa-database"></i>
+                    <span>Data Science</span>
+                    <span class="skill-percent">80%</span>
+                </div>
+                <div class="skill-progress-bar">
+                    <div class="skill-progress" style="--progress: 80%"></div>
+                </div>
             </div>
             <div class="skill" data-progress="75">
-                <i class="fa-solid fa-robot"></i>
-                <span>75%<br>Deep Learning</span>
-                <div class="skill-progress" style="--progress: 75%"></div>
+                <div class="skill-info">
+                    <i class="fa-solid fa-robot"></i>
+                    <span>Deep Learning</span>
+                    <span class="skill-percent">75%</span>
+                </div>
+                <div class="skill-progress-bar">
+                    <div class="skill-progress" style="--progress: 75%"></div>
+                </div>
             </div>
         </div>
     </section>
@@ -213,113 +239,323 @@
             <h2>Tech Stack</h2>
             <div class="tech-categories">
                 <div class="tech-category active" id="programming-languages">
-                    <h3><i class="fas fa-code"></i> Programming Languages</h3>
-                    <div class="tech-grid">
-                        <div class="tech-item">
-                            <i class="fab fa-python"></i>
-                            <span>Python</span>
+                    <h3><i class="fas fa-code"></i> Programming Languages</h3>                    <div class="tech-grid">                        <div class="tech-item" data-progress="95" data-status="mastered" data-tech="python">
+                            <div class="tech-status">Mastered</div>
+                            <div class="tech-item-header">
+                                <i class="fab fa-python"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">Python</span>
+                                    <div class="tech-percentage">95%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 95%"></div>
+                            </div>
                         </div>
-                        <div class="tech-item">
-                            <i class="fab fa-js-square"></i>
-                            <span>JavaScript</span>
+                        <div class="tech-item" data-progress="85" data-status="learning" data-tech="javascript">
+                            <div class="tech-status">Learning</div>
+                            <div class="tech-item-header">
+                                <i class="fab fa-js-square"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">JavaScript</span>
+                                    <div class="tech-percentage">85%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 85%"></div>
+                            </div>
                         </div>
-                        <div class="tech-item">
-                            <i class="fab fa-react"></i>
-                            <span>React</span>
+                        <div class="tech-item" data-progress="80" data-status="learning" data-tech="react">
+                            <div class="tech-status">Learning</div>
+                            <div class="tech-item-header">
+                                <i class="fab fa-react"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">React</span>
+                                    <div class="tech-percentage">80%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 80%"></div>
+                            </div>
                         </div>
-                        <div class="tech-item">
-                            <i class="fab fa-node-js"></i>
-                            <span>Node.js</span>
+                        <div class="tech-item" data-progress="75" data-status="beginner" data-tech="nodejs">
+                            <div class="tech-status">Beginner</div>
+                            <div class="tech-item-header">
+                                <i class="fab fa-node-js"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">Node.js</span>
+                                    <div class="tech-percentage">75%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 75%"></div>
+                            </div>
                         </div>
-                        <div class="tech-item">
-                            <i class="fas fa-database"></i>
-                            <span>SQL</span>
+                        <div class="tech-item" data-progress="90" data-status="mastered" data-tech="sql">
+                            <div class="tech-status">Mastered</div>
+                            <div class="tech-item-header">
+                                <i class="fas fa-database"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">SQL</span>
+                                    <div class="tech-percentage">90%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 90%"></div>
+                            </div>
                         </div>
-                        <div class="tech-item">
-                            <i class="fab fa-docker"></i>
-                            <span>Docker</span>
+                        <div class="tech-item" data-progress="70" data-status="exploring" data-tech="docker">
+                            <div class="tech-status">Exploring</div>
+                            <div class="tech-item-header">
+                                <i class="fab fa-docker"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">Docker</span>
+                                    <div class="tech-percentage">70%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 70%"></div>
+                            </div>
                         </div>
-                        <div class="tech-item">
-                            <i class="fab fa-java"></i>
-                            <span>Java</span>
+                        <div class="tech-item" data-progress="75" data-status="beginner" data-tech="java">
+                            <div class="tech-status">Beginner</div>
+                            <div class="tech-item-header">
+                                <i class="fab fa-java"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">Java</span>
+                                    <div class="tech-percentage">75%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 75%"></div>
+                            </div>
                         </div>
-                        <div class="tech-item">
-                            <i class="fab fa-html5"></i>
-                            <span>HTML5</span>
+                        <div class="tech-item" data-progress="95" data-status="mastered" data-tech="html5">
+                            <div class="tech-status">Mastered</div>
+                            <div class="tech-item-header">
+                                <i class="fab fa-html5"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">HTML5</span>
+                                    <div class="tech-percentage">95%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 95%"></div>
+                            </div>
                         </div>
-                        <div class="tech-item">
-                            <i class="fab fa-css3-alt"></i>
-                            <span>CSS3</span>
+                        <div class="tech-item" data-progress="90" data-status="mastered" data-tech="css3">
+                            <div class="tech-status">Mastered</div>
+                            <div class="tech-item-header">
+                                <i class="fab fa-css3-alt"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">CSS3</span>
+                                    <div class="tech-percentage">90%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 90%"></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="tech-category" id="frameworks-tools">
-                    <h3><i class="fas fa-tools"></i> Frameworks & Tools</h3>
-                    <div class="tech-grid">
-                        <div class="tech-item">
-                            <i class="fas fa-robot"></i>
-                            <span>TensorFlow</span>
+                </div>                <div class="tech-category" id="frameworks-tools">
+                    <h3><i class="fas fa-tools"></i> Frameworks & Tools</h3>                    <div class="tech-grid">
+                        <div class="tech-item" data-progress="90" data-status="mastered">
+                            <div class="tech-status">Mastered</div>
+                            <div class="tech-item-header">
+                                <i class="fas fa-robot"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">TensorFlow</span>
+                                    <div class="tech-percentage">90%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 90%"></div>
+                            </div>
                         </div>
-                        <div class="tech-item">
-                            <i class="fas fa-fire"></i>
-                            <span>PyTorch</span>
+                        <div class="tech-item" data-progress="85" data-status="mastered">
+                            <div class="tech-status">Mastered</div>
+                            <div class="tech-item-header">
+                                <i class="fas fa-fire"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">PyTorch</span>
+                                    <div class="tech-percentage">85%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 85%"></div>
+                            </div>
                         </div>
-                        <div class="tech-item">
-                            <i class="fas fa-chart-line"></i>
-                            <span>Scikit-learn</span>
+                        <div class="tech-item" data-progress="90" data-status="mastered">
+                            <div class="tech-status">Mastered</div>
+                            <div class="tech-item-header">
+                                <i class="fas fa-chart-line"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">Scikit-learn</span>
+                                    <div class="tech-percentage">90%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 90%"></div>
+                            </div>
                         </div>
-                        <div class="tech-item">
-                            <i class="fas fa-eye"></i>
-                            <span>OpenCV</span>
+                        <div class="tech-item" data-progress="80" data-status="learning">
+                            <div class="tech-status">Learning</div>
+                            <div class="tech-item-header">
+                                <i class="fas fa-eye"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">OpenCV</span>
+                                    <div class="tech-percentage">80%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 80%"></div>
+                            </div>
                         </div>
-                        <div class="tech-item">
-                            <i class="fas fa-language"></i>
-                            <span>NLP/NLTK</span>
+                        <div class="tech-item" data-progress="75" data-status="learning">
+                            <div class="tech-status">Learning</div>
+                            <div class="tech-item-header">
+                                <i class="fas fa-language"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">NLP/NLTK</span>
+                                    <div class="tech-percentage">75%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 75%"></div>
+                            </div>
                         </div>
-                        <div class="tech-item">
-                            <i class="fas fa-server"></i>
-                            <span>FastAPI</span>
+                        <div class="tech-item" data-progress="85" data-status="learning">
+                            <div class="tech-status">Learning</div>
+                            <div class="tech-item-header">
+                                <i class="fas fa-server"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">FastAPI</span>
+                                    <div class="tech-percentage">85%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 85%"></div>
+                            </div>
                         </div>
-                        <div class="tech-item">
-                            <i class="fab fa-angular"></i>
-                            <span>Angular</span>
+                        <div class="tech-item" data-progress="70" data-status="beginner">
+                            <div class="tech-status">Beginner</div>
+                            <div class="tech-item-header">
+                                <i class="fab fa-angular"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">Angular</span>
+                                    <div class="tech-percentage">70%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 70%"></div>
+                            </div>
                         </div>
-                        <div class="tech-item">
-                            <i class="fab fa-vuejs"></i>
-                            <span>Vue.js</span>
+                        <div class="tech-item" data-progress="75" data-status="beginner">
+                            <div class="tech-status">Beginner</div>
+                            <div class="tech-item-header">
+                                <i class="fab fa-vuejs"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">Vue.js</span>
+                                    <div class="tech-percentage">75%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 75%"></div>
+                            </div>
                         </div>
-                        <div class="tech-item">
-                            <i class="fas fa-cloud"></i>
-                            <span>AWS</span>
+                        <div class="tech-item" data-progress="80" data-status="learning">
+                            <div class="tech-status">Learning</div>
+                            <div class="tech-item-header">
+                                <i class="fas fa-cloud"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">AWS</span>
+                                    <div class="tech-percentage">80%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 80%"></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="tech-category" id="databases">
-                    <h3><i class="fas fa-database"></i> Databases</h3>
-                    <div class="tech-grid">
-                        <div class="tech-item">
-                            <i class="fas fa-database"></i>
-                            <span>PostgreSQL</span>
+                </div>                <div class="tech-category" id="databases">
+                    <h3><i class="fas fa-database"></i> Databases</h3>                    <div class="tech-grid">
+                        <div class="tech-item" data-progress="85" data-status="learning">
+                            <div class="tech-status">Learning</div>
+                            <div class="tech-item-header">
+                                <i class="fas fa-database"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">PostgreSQL</span>
+                                    <div class="tech-percentage">85%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 85%"></div>
+                            </div>
                         </div>
-                        <div class="tech-item">
-                            <i class="fas fa-database"></i>
-                            <span>MySQL</span>
+                        <div class="tech-item" data-progress="90" data-status="mastered">
+                            <div class="tech-status">Mastered</div>
+                            <div class="tech-item-header">
+                                <i class="fas fa-database"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">MySQL</span>
+                                    <div class="tech-percentage">90%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 90%"></div>
+                            </div>
                         </div>
-                        <div class="tech-item">
-                            <i class="fas fa-leaf"></i>
-                            <span>MongoDB</span>
+                        <div class="tech-item" data-progress="80" data-status="learning">
+                            <div class="tech-status">Learning</div>
+                            <div class="tech-item-header">
+                                <i class="fas fa-leaf"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">MongoDB</span>
+                                    <div class="tech-percentage">80%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 80%"></div>
+                            </div>
                         </div>
-                        <div class="tech-item">
-                            <i class="fas fa-memory"></i>
-                            <span>Redis</span>
+                        <div class="tech-item" data-progress="75" data-status="beginner">
+                            <div class="tech-status">Beginner</div>
+                            <div class="tech-item-header">
+                                <i class="fas fa-memory"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">Redis</span>
+                                    <div class="tech-percentage">75%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 75%"></div>
+                            </div>
                         </div>
-                        <div class="tech-item">
-                            <i class="fas fa-search"></i>
-                            <span>Elasticsearch</span>
+                        <div class="tech-item" data-progress="70" data-status="exploring">
+                            <div class="tech-status">Exploring</div>
+                            <div class="tech-item-header">
+                                <i class="fas fa-search"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">Elasticsearch</span>
+                                    <div class="tech-percentage">70%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 70%"></div>
+                            </div>
                         </div>
-                        <div class="tech-item">
-                            <i class="fas fa-cube"></i>
-                            <span>SQLite</span>
+                        <div class="tech-item" data-progress="85" data-status="mastered">
+                            <div class="tech-status">Mastered</div>
+                            <div class="tech-item-header">
+                                <i class="fas fa-cube"></i>
+                                <div class="tech-item-info">
+                                    <span class="tech-name">SQLite</span>
+                                    <div class="tech-percentage">85%</div>
+                                </div>
+                            </div>
+                            <div class="tech-progress-bar">
+                                <div class="tech-progress" style="--progress: 85%"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -411,8 +647,7 @@
                             <p></p>
                         </div>
                     </div>
-                </div>
-                <form class="contact-form" id="contactForm">
+                </div>                <form class="contact-form" id="contactForm">
                     <div class="form-group">
                         <input type="text" id="name" name="name" placeholder=" " required>
                         <label class="floating-label" for="name">Name</label>
@@ -426,16 +661,12 @@
                         <label class="floating-label" for="phone">Phone Number</label>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="service" name="service" placeholder=" ">
-                        <label class="floating-label" for="service">Service Of Interest</label>
-                    </div>
-                    <div class="form-group">
                         <input type="text" id="timeline" name="timeline" placeholder=" ">
                         <label class="floating-label" for="timeline">Timeline</label>
                     </div>
                     <div class="form-group">
                         <textarea id="message" name="message" placeholder=" " rows="5" required></textarea>
-                        <label class="floating-label" for="message">Project Details...</label>
+                        <label class="floating-label" for="message">Message</label>
                     </div>
                     <button type="submit" class="btn btn-primary">
                         <span>Send Message</span>
@@ -490,18 +721,24 @@
         </div>
         <div class="chat-messages" id="chatMessages">
             <div class="message ai-message">
-                <i class="fas fa-robot"></i>
-                <div class="message-content">
+                <i class="fas fa-robot"></i>                <div class="message-content">
                     <p>Hi! I'm your AI assistant. I can help you learn more about my skills, projects, and experience. What would you like to know?</p>
                     <div class="quick-questions">
-                        <button class="quick-btn">Tell me about your AI projects</button>
-                        <button class="quick-btn">What machine learning frameworks do you use?</button>
-                        <button class="quick-btn">How did you get started in AI?</button>
-                        <button class="quick-btn">What services do you offer?</button>
-                        <button class="quick-btn">Can you show me your certifications?</button>
+                        <button class="quick-btn" data-question="Tell me about your AI projects">Tell me about your AI projects</button>
+                        <button class="quick-btn" data-question="What machine learning frameworks do you use?">What machine learning frameworks do you use?</button>
+                        <button class="quick-btn" data-question="How did you get started in AI?">How did you get started in AI?</button>
+                        <button class="quick-btn" data-question="What services do you offer?">What services do you offer?</button>
+                        <button class="quick-btn" data-question="Can you show me your certifications?">Can you show me your certifications?</button>
                     </div>
                 </div>
+            </div>        </div>
+        <div class="chat-typing" id="chatTyping" style="display: none;">
+            <div class="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
+            <span>AI is typing...</span>
         </div>
         <div class="chat-input">
             <input type="text" id="chatInput" placeholder="Ask me anything about Huynh Duc Anh's portfolio...">

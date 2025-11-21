@@ -99,6 +99,7 @@ nav a.active-nav::after {
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
+    transform: translateZ(0); /* Fix for animation glitch */
 }
 
 .btn::before {
@@ -110,10 +111,16 @@ nav a.active-nav::after {
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: left 0.5s ease;
+    pointer-events: none;
 }
 
 .btn:hover::before {
     left: 100%;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 128, 0, 0.3);
 }
 
 .hero {
@@ -349,6 +356,113 @@ nav a.active-nav::after {
     margin-bottom: 8px;
     display: block;
 }
+
+/* ===== SKILLS SECTION WITH PROGRESS BARS ===== */
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.skill {
+    background: #333;
+    border-radius: 15px;
+    padding: 30px;
+    width: 280px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.skill:hover {
+    background: #444;
+    border-color: #ff8000;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 128, 0, 0.2);
+}
+
+.skill-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.skill-info i {
+    font-size: 2rem;
+    color: #ff8000;
+}
+
+.skill-info span:nth-child(2) {
+    flex: 1;
+    margin-left: 15px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.skill-percent {
+    color: #ff8000;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.skill-progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #555;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.skill-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #ff6000, #ff8000, #ffaa00);
+    border-radius: 10px;
+    width: 0;
+    transition: width 2s ease-out;
+    position: relative;
+}
+
+.skill-progress::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 0 10px 10px 0;
+}
+
+/* Animation when skill comes into view */
+.skill.animate .skill-progress {
+    width: var(--progress);
+}
+
+/* Different colors for each skill */
+.skill:nth-child(1) .skill-progress {
+    background: linear-gradient(90deg, #3776ab, #4b8bbe);
+}
+
+.skill:nth-child(2) .skill-progress {
+    background: linear-gradient(90deg, #ff6b35, #f7931e);
+}
+
+.skill:nth-child(3) .skill-progress {
+    background: linear-gradient(90deg, #e74c3c, #c0392b);
+}
+
+.skill:nth-child(4) .skill-progress {
+    background: linear-gradient(90deg, #3498db, #2980b9);
+}
+
+.skill:nth-child(5) .skill-progress {
+    background: linear-gradient(90deg, #9b59b6, #8e44ad);
+}
+
+/* Specific solid colors for different technologies - removed complex gradients */
 
 .portfolio {
     background: #181818;
@@ -1072,39 +1186,178 @@ body.light-theme .testimonial-card {
 }
 
 .tech-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 30px;
-    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto 50px auto;
 }
 
 .tech-item {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 30px 20px;
+    padding: 25px;
     background: #333;
     border-radius: 15px;
     transition: all 0.3s ease;
     cursor: pointer;
+    position: relative;
+    width: 100%;
 }
 
 .tech-item:hover {
     background: #444;
-    transform: translateY(-10px);
+    transform: translateY(-5px);
     box-shadow: 0 10px 30px rgba(255, 128, 0, 0.2);
+}
+
+.tech-item-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
 }
 
 .tech-item i {
     font-size: 2.5rem;
     color: #ff8000;
-    margin-bottom: 15px;
+    margin-right: 20px;
+    min-width: 50px;
 }
 
-.tech-item span {
+.tech-item-info {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tech-name {
     font-weight: 600;
     color: #fff;
-    text-align: center;
+    font-size: 1.2rem;
+}
+
+.tech-percentage {
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tech-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+    margin-top: 10px;
+}
+
+.tech-progress {
+    height: 100%;
+    border-radius: 3px;
+    width: 0;
+    transition: width 1.2s ease-out 0.1s;
+    position: relative;
+}
+
+/* Animation when tech comes into view */
+.tech-item.animate .tech-progress {
+    width: var(--progress);
+}
+
+/* Simple color system for different technologies */
+.tech-item[data-tech="python"] .tech-progress {
+    background: #3776ab;
+}
+
+.tech-item[data-tech="tensorflow"] .tech-progress {
+    background: #ff6f00;
+}
+
+.tech-item[data-tech="pytorch"] .tech-progress {
+    background: #ee4c2c;
+}
+
+.tech-item[data-tech="javascript"] .tech-progress {
+    background: #f7df1e;
+}
+
+.tech-item[data-tech="react"] .tech-progress {
+    background: #61dafb;
+}
+
+.tech-item[data-tech="nodejs"] .tech-progress {
+    background: #8cc84b;
+}
+
+.tech-item[data-tech="sql"] .tech-progress {
+    background: #336791;
+}
+
+.tech-item[data-tech="docker"] .tech-progress {
+    background: #0db7ed;
+}
+
+.tech-item[data-tech="html5"] .tech-progress {
+    background: #e34c26;
+}
+
+.tech-item[data-tech="css3"] .tech-progress {
+    background: #1572b6;
+}
+
+/* Status-based colors with solid colors */
+.tech-item[data-status="mastered"] .tech-progress {
+    background: #27ae60 !important;
+}
+
+.tech-item[data-status="learning"] .tech-progress {
+    background: #f39c12 !important;
+}
+
+.tech-item[data-status="beginner"] .tech-progress {
+    background: #3498db !important;
+}
+
+.tech-item[data-status="exploring"] .tech-progress {
+    background: #9b59b6 !important;
+}
+
+.tech-status {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 3px 6px;
+    border-radius: 6px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tech-item[data-status="mastered"] .tech-status {
+    background: #27ae60;
+    color: white;
+}
+
+.tech-item[data-status="learning"] .tech-status {
+    background: #ff8000;
+    color: white;
+}
+
+.tech-item[data-status="beginner"] .tech-status {
+    background: #3498db;
+    color: white;
+}
+
+.tech-item[data-status="exploring"] .tech-status {
+    background: #9b59b6;
+    color: white;
 }
 
 .cert-grid {
